@@ -32,6 +32,7 @@
 # Q: Como instalo um pacote no RStudio?
 # R: A função se chama install.packages
 # DICA: Na hora de instalar pacotes, os nomes vão entre aspas!
+# OBS: caso você já tenha instalado o pacote em outro momento, você não precisa rodar o código abaixo.
 
 install.packages("tidyverse")
 # Conjunto de vários pacotes super úteis para manipular tabelas
@@ -48,6 +49,7 @@ install.packages("tidylog")
 # Q: Ok, instalei o pacote. E agora, como faço o pacote funcionar?
 # R: Você escreve a função "library", igual nos exemplos abaixo:
 # DICA: Na hora de carregar pacotes, os nomes NÃO vão entre aspas!
+# OBS: antes de rodar o código, você deve sempre carregar os pacotes, como fazemos abaixo.
 
 library(tidyverse)
 library(lubridate)
@@ -115,18 +117,20 @@ glimpse(municipios_vacinas)
 # Vejam que ele te dá acesso fácil ao nome das colunas, dentro da caixa "Console".
 # Com isso podemos copiar e colar esses nomes exatos no comando "rename".
 # Para fazer isso, vamos "editar" nosso objeto "municipios_vacinas".
+# Abaixo, quisemos alterar o cabeçalho de duas colunas
 
 municipios_vacinas <- municipios_vacinas %>%
   rename(
-    municipio = X.U.FEFF.Município,
-    cod_ibge = Cód..IBGE,
-    uf = UF,
-    regiao = Região,
-    fabricante = Fabricante,
     doses_aplicadas = Doses.Aplicadas,
     dose_1 = Dose.1,
     dose_2 = Dose.2
   )
+
+# Mas há também uma função que nos ajuda a padronizar o cabeçalho.
+# Ela deixa tudo em caixa baixa, sem espaço, sem acento etc
+
+municipios_vacinas <- municipios_vacinas %>%
+  clean_names()
 
 # Essa tarefa exige a expressão %>%, também chamada de "pipe".
 # Em termos simples: o "pipe" funciona como uma vírgula entre uma função e outra.
@@ -303,9 +307,7 @@ municipios_populacao <- read.csv2("data-raw/municipios_populacao.csv", encoding 
 glimpse(municipios_populacao)
 
 municipios_populacao <- municipios_populacao %>%
-  rename(
-    cod_ibge = X.U.FEFF.cod_ibge
-  )
+  clean_names()
 
 # Pronto, agora temos nossa tabela de população com 5.570 linhas e 3 colunas.
 # As três colunas são: cod_ibge, municipio e população.
@@ -313,6 +315,7 @@ municipios_populacao <- municipios_populacao %>%
 # Mas quando mexemos com dados, especialmente o nome de municípios, vá pelo código!
 # Motivo: será que as duas fontes escreveram os nomes das cidades da mesma forma?
 # Resposta: provavelmente NÃO!
+# Além disso, há cidades em diferentes estados com o mesmo nome!!
 # Os nomes podem mudar, mas os códigos são os mesmos. Vamos lá para o join:
 
 municipios <- left_join(
