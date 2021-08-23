@@ -81,37 +81,37 @@ furto_v <- all_dados_tidy %>%
   select(trimestre, ano, crime, grande_sp) %>%
   filter(crime == "Furto de veículos")
 
-  furto_v %>%
-    ggplot(aes(x = trimestre, y = grande_sp, color = ano)) +
-    ylim(3000, 6500) +
-    scale_x_discrete(labels=c("Jan-Mar", "Abr-Jun", "Jul-Set", "Out-Dez")) +
-    labs(x = "Trimestre", y = "Furto de veículos") +
-    geom_point()
+furto_v %>%
+  ggplot(aes(x = trimestre, y = grande_sp, color = ano)) +
+  ylim(3000, 6500) +
+  scale_x_discrete(labels=c("Jan-Mar", "Abr-Jun", "Jul-Set", "Out-Dez")) +
+  labs(x = "Trimestre", y = "Furto de veículos") +
+  geom_point()
 
-  furto_v %>%
-    ggplot(aes(x = trimestre, y = grande_sp, group = ano, color = ano)) +
-    #ylim(3000, 6500) +
-    scale_x_discrete(labels=c("Jan-Mar", "Abr-Jun", "Jul-Set", "Out-Dez")) +
-    labs(x = "Trimestre", y = "Furto de veículos") +
-    geom_line()
+furto_v %>%
+  ggplot(aes(x = trimestre, y = grande_sp, group = ano, color = ano)) +
+  #ylim(3000, 6500) +
+  scale_x_discrete(labels=c("Jan-Mar", "Abr-Jun", "Jul-Set", "Out-Dez")) +
+  labs(x = "Trimestre", y = "Furto de veículos") +
+  geom_line()
 
 ### 9. Analisar os dados da GRANDE SÃO PAULO quanto a APREENSÃO DE ARMAS DE FOGO
 
 armas_f <- all_dados_tidy %>%
-    select(trimestre, ano, crime, grande_sp) %>%
-    filter(crime == "Armas de fogo apreendidas")
+  select(trimestre, ano, crime, grande_sp) %>%
+  filter(crime == "Armas de fogo apreendidas")
 
-  armas_f %>%
-    ggplot(aes(x = trimestre, y = grande_sp, color = ano)) +
-    scale_x_discrete(labels=c("Jan-Mar", "Abr-Jun", "Jul-Set", "Out-Dez")) +
-    labs(x = "Trimestre", y = "Armas de fogo apreendidas") +
-    geom_point()
+armas_f %>%
+  ggplot(aes(x = trimestre, y = grande_sp, color = ano)) +
+  scale_x_discrete(labels=c("Jan-Mar", "Abr-Jun", "Jul-Set", "Out-Dez")) +
+  labs(x = "Trimestre", y = "Armas de fogo apreendidas") +
+  geom_point()
 
-  armas_f %>%
-    ggplot(aes(x = trimestre, y = grande_sp, group = ano, color = ano)) +
-    #ylim(350, 650) +
-    scale_x_discrete(labels=c("1º", "2º", "3º", "4º")) +
-    labs(x = "Trimestre", y = "Armas de fogo apreendidas") +
-    geom_line() +
-    facet_wrap(~ano)
+armas_f %>%
+  ggplot(aes(x = trimestre, y = grande_sp, group = ano, color = ano)) +
+  #ylim(350, 650) +
+  scale_x_discrete(labels=c("1º", "2º", "3º", "4º")) +
+  labs(x = "Trimestre", y = "Armas de fogo apreendidas") +
+  geom_line() +
+  facet_wrap(~ano)
 
