@@ -110,7 +110,8 @@ armas_f <- all_dados_tidy %>%
   armas_f %>%
     ggplot(aes(x = trimestre, y = grande_sp, group = ano, color = ano)) +
     #ylim(350, 650) +
-    scale_x_discrete(labels=c("Jan-Mar", "Abr-Jun", "Jul-Set", "Out-Dez")) +
+    scale_x_discrete(labels=c("1º", "2º", "3º", "4º")) +
     labs(x = "Trimestre", y = "Armas de fogo apreendidas") +
-    geom_line()
+    geom_line() +
+    facet_wrap(~ano)
 
