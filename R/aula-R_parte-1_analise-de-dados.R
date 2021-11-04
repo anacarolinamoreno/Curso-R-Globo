@@ -1,3 +1,7 @@
+
+# Para instalar o R e o RStudio, siga esse guia:
+# https://livro.curso-r.com/1-instalacao.html
+
 # Este é o arquivo com o código da aula de introdução à linguagem R,
 # do programa Milhas do Conhecimento
 
@@ -6,7 +10,7 @@
 # O R tem muitas funcionalidades: calculadora, automação, um monte de técnicas
 # da estatística...
 
-# Para jornalistas, ele é ótimo para facilitar análises de bases de dados.
+# Mas ele também é ótimo para facilitar análises de bases de dados.
 # Seja para abrir bases que são grandes demais para o Excel/Google Planilhas,
 # ou para escrever, em poucas linhas, um código que pode ser repetido e que,
 # no Excel, teria que ser feito manualmente.
@@ -21,8 +25,8 @@
 # R: Porque sem eles o programa acha que você está escrevendo um comando!
 
 # Q: Escrevi meu comando, como faço para o programa rodar o código?
-# R1: Posicione o cursor em cima do código que você quer rodar e clique no botão "Run" no topo!
-# R2: Você também pode rodar só uma parte do código, selecionando o trecho com o mouse.
+# R1: Posicione o cursor em cima do código e clique no botão "Run" no topo!
+# R2: Ou rode só uma parte do código, selecionando o trecho com o mouse.
 # R3: O atalho do teclado para o botão "Run" é o CTRL+ENTER.
 
 # 0.2- INSTALANDO E CARREGANDO PACOTES
@@ -58,8 +62,10 @@ library(tidylog)
 
 # 1- BAIXANDO NOSSA BASE DE DADOS
 # Nosso exemplo é a base de vacinas aplicadas por município brasileiro.
-# Vamos usar um modelo já baixado antes, dentro da pasta "data-raw": municipios_vacinas.csv
-# Mas você pode achá-la aqui: https://qsprod.saude.gov.br/extensions/DEMAS_C19Vacina/DEMAS_C19Vacina.html
+# Vamos usar um modelo já baixado antes, dentro da pasta "data-raw":
+# municipios_vacinas.csv
+# Mas você pode achá-la aqui:
+# https://qsprod.saude.gov.br/extensions/DEMAS_C19Vacina/DEMAS_C19Vacina.html
 # O botão para o download está no fim da página à esquerda.
 
 # 2- LENDO BASE DE DADOS (OU TABELA/PLANILHA/DATAFRAME...)
@@ -115,6 +121,7 @@ glimpse(municipios_vacinas)
 # Vejam que ele te dá acesso fácil ao nome das colunas, dentro da caixa "Console".
 # Com isso podemos copiar e colar esses nomes exatos no comando "rename".
 # Para fazer isso, vamos "editar" nosso objeto "municipios_vacinas".
+# Essa é uma parte importante e que exige atenção para evitar erros de digitação.
 
 municipios_vacinas <- municipios_vacinas %>%
   rename(
@@ -329,6 +336,7 @@ municipios <- left_join(
 # Para isso, vamos usar um comando que se chama "mutate":
 
 cobertura_vacinal <- municipios %>%
+  rename(municipio = municipio.x) %>%
   select(-municipio.y) %>%
   mutate(
     cobertura_vacinal_dose_1 = ( total_dose_1 * 100 ) / populacao,
@@ -352,9 +360,9 @@ cobertura_vacinal <- municipios %>%
     cobertura_vacinal_dose_1 = round((( total_dose_1 * 100 ) / populacao),1),
     cobertura_vacinal_dose_2 = round((( total_dose_2 * 100 ) / populacao),1),
   ) %>%
-  arrange(desc(cobertura_vacinal_dose_2)) %>%
-  write.csv2("data/cobertura_vacinal.csv", row.names = F)
+  arrange(desc(cobertura_vacinal_dose_2))
 
+write.csv2(cobertura_vacinal, "data/cobertura_vacinal.csv", row.names = F)
 
 # Aqui encerramos a parte da CIÊNCIA DE DADOS da nossa pauta.
 # Ou seja, aplicamos técnicas de programação e análise estatística pra conseguir dados consolidados.
