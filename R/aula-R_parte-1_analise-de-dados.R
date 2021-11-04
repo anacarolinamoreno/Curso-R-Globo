@@ -362,6 +362,7 @@ cobertura_vacinal <- municipios %>%
   ) %>%
   arrange(desc(cobertura_vacinal_dose_2))
 
+
 write.csv2(cobertura_vacinal, "data/cobertura_vacinal.csv", row.names = F)
 
 # Aqui encerramos a parte da CIÊNCIA DE DADOS da nossa pauta.
